@@ -19,6 +19,14 @@ func NewInterval(startHour int, startMinute int, endHour int, endMinute int) *In
 	}
 }
 
+func (i *Interval) StartDate() (int, time.Month, int) {
+	return i.start.Date()
+}
+
+func (i *Interval) EndDate() (int, time.Month, int) {
+	return i.end.Date()
+}
+
 func (i *Interval) StartHour() int {
 	return i.start.Hour()
 }

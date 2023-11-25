@@ -36,3 +36,33 @@ func TestNewInterval(t *testing.T) {
 		t.Errorf("interval.ShortString() is not correct :%s", interval.ShortString())
 	}
 }
+
+func TestStartDate(t *testing.T) {
+	interval := NewInterval(10, 00, 10, 30)
+	start_year, start_month, start_day := interval.StartDate()
+	now_year, now_month, now_day := time.Now().Date()
+	if now_year != start_year {
+		t.Errorf("interval.StartDate() year is not correct: %d != %d", now_year, start_year)
+	}
+	if now_month != start_month {
+		t.Errorf("interval.StartDate() year is not correct: %d != %d", now_month, start_month)
+	}
+	if now_day != start_day {
+		t.Errorf("interval.StartDate() year is not correct: %d != %d", now_day, start_day)
+	}
+}
+
+func TestEndDate(t *testing.T) {
+	interval := NewInterval(10, 00, 10, 30)
+	end_year, end_month, end_day := interval.EndDate()
+	now_year, now_month, now_day := time.Now().Date()
+	if now_year != end_year {
+		t.Errorf("interval.StartDate() year is not correct: %d != %d", now_year, end_year)
+	}
+	if now_month != end_month {
+		t.Errorf("interval.StartDate() year is not correct: %s != %s", now_month, end_month)
+	}
+	if now_day != end_day {
+		t.Errorf("interval.StartDate() year is not correct: %d != %d", now_day, end_day)
+	}
+}

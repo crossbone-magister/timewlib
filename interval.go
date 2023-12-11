@@ -43,8 +43,8 @@ func (i *Interval) EndMinute() int {
 	return i.end.Minute()
 }
 
-func (i *Interval) Duration() float64 {
-	return i.end.Sub(i.start).Minutes()
+func (i *Interval) Duration() time.Duration {
+	return i.end.Sub(i.start)
 }
 
 func (i *Interval) IsSameHour() bool {

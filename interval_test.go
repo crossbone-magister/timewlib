@@ -20,8 +20,12 @@ func TestNewInterval(t *testing.T) {
 	if interval.EndMinute() != 30 {
 		t.Errorf("interval.EndMinute() is not correct :%d", interval.EndMinute())
 	}
-	if interval.Duration() != 30 {
-		t.Errorf("interval.Duration() is not correct :%f", interval.Duration())
+	expectedDuration, err := time.ParseDuration("30m")
+	if err != nil {
+		t.Fatalf("Failed to parse expected duration: %s", err)
+	}
+	if interval.Duration() != expectedDuration {
+		t.Errorf("interval.Duration() is not correct :%s", interval.Duration())
 	}
 	if !interval.IsSameHour() {
 		t.Errorf("interval.IsSameHour() is not correct :%t", interval.IsSameHour())

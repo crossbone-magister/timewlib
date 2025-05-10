@@ -21,6 +21,9 @@ func Process(rawIntervals []TimewarriorInterval) ([]Interval, error) {
 		if err != nil {
 			return []Interval{}, err
 		}
+		if rawInterval.End == "" {
+			rawInterval.End = time.Now().UTC().Format(isoLayout)
+		}
 		end, err := parseIsoLocal(rawInterval.End)
 		if err != nil {
 			return []Interval{}, err

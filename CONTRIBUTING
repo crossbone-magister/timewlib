@@ -1,0 +1,16 @@
+# Contributing
+Thanks for considering contributing to timewlib!
+I've written this to practice Golang and improve my extend the reporting capabilities of timewarrior to suit my needs. Knowing that someone wants to improve or fix it for their own needs gives me a certain sense of pride and achievement.
+
+## Reporting a bug
+Please open a github issue describing you problem with included examples and attachments to try and reproduce the issue.
+If you also want to try and fix it yourself, fork the repository, create a branch and then open a pull request.
+
+## Requesting a feature
+Please open a github issue describing you request with included examples of how the feature should work and behave.
+If you also want to try and write it yourself, fork the repository, create a branch and then open a pull request.
+
+## Code guidelines
+
+1. Code changes always have to be accompanied with their related unit tests included in the related `_test.go`
+2. Commit message must adhere to the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/)

@@ -1,35 +1,58 @@
 package timewlib
 
-import "time"
+import (
+	"strings"
+	"time"
+)
 
-const c_DEBUG_KEY = "debug"
-const c_VERBOSE_KEY = "verbose"
-const c_CONFIRMATION_KEY = "confirmation"
-const c_REPORT_START_KEY = "temp.report.start"
-const c_REPORT_END_KEY = "temp.report.end"
+const separator = "."
+const debugKey = "debug"
+const verboseKey = "verbose"
+const confirmationKey = "confirmation"
+const reportStartKey = "temp.report.start"
+const reportEndKey = "temp.report.end"
 
 type Configuration map[string]string
 
 func (c Configuration) IsDebug() bool {
-	return isEnabledValue(c[c_DEBUG_KEY])
+	return isEnabledValue(c[debugKey])
 }
 
 func (c Configuration) IsVerbose() bool {
-	return isEnabledValue(c[c_VERBOSE_KEY])
+	return isEnabledValue(c[verboseKey])
 }
 
 func (c Configuration) RequireConfirmation() bool {
-	return isEnabledValue(c[c_CONFIRMATION_KEY])
+	return isEnabledValue(c[confirmationKey])
 }
 
 func (c Configuration) GetReportStartDate() (time.Time, error) {
-	start := c[c_REPORT_START_KEY]
+	start := c[reportStartKey]
 	return parseIsoLocal(start)
 }
 
 func (c Configuration) GetReportEndDate() (time.Time, error) {
-	end := c[c_REPORT_END_KEY]
+	end := c[reportEndKey]
 	return parseIsoLocal(end)
+}
+
+func (c Configuration) GetAllByPrefix(prefix string) map[string]string {
+	result := make(map[string]string)
+	for key, value := range c {
+		if strings.HasPrefix(key, prefix) {
+			result[key] = value
+		}
+	}
+	return result
+}
+
+func (c Configuration) GetAllByPrefixStripped(prefix string) map[string]string {
+	var withPrefix = c.GetAllByPrefix(prefix)
+	var result = make(map[string]string)
+	for key, value := range withPrefix {
+		result[strings.TrimPrefix(key, prefix+separator)] = value
+	}
+	return result
 }
 
 func isEnabledValue(value string) bool {

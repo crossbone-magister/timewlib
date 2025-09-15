@@ -21,9 +21,14 @@ func Process(rawIntervals []TimewarriorInterval) ([]Interval, error) {
 		if err != nil {
 			return []Interval{}, err
 		}
-		end, err := parseIsoLocal(rawInterval.End)
-		if err != nil {
-			return []Interval{}, err
+		var end time.Time
+		if rawInterval.End == "" {
+			end = time.Now().UTC()
+		} else {
+			end, err = parseIsoLocal(rawInterval.End)
+			if err != nil {
+				return []Interval{}, err
+			}
 		}
 		processedIntervals = append(processedIntervals, Interval{
 			start: start,

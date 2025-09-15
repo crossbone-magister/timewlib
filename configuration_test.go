@@ -72,3 +72,38 @@ func TestGetReportEndDate(t *testing.T) {
 		t.Fatalf("Parsed date is not 20240309T230000Z but %s", start)
 	}
 }
+
+func TestGetAllByPrefix(t *testing.T) {
+	var config Configuration = map[string]string{"p1.a": "1", "p1.b": "2", "p2.c": "3", "d": "4"}
+	allP1 := config.GetAllByPrefix("p1")
+	expectedEntries := 2
+	if len(allP1) != expectedEntries {
+		t.Fatalf("Configuration did not extract expected [%d] but [%d] entries instead with prefix p1", expectedEntries, len(allP1))
+	}
+	var keys = []string{"p1.a", "p1.b"}
+	for _, key := range keys {
+		if _, ok := allP1[key]; !ok {
+			t.Fatalf("Configuration did not contain expected key %s", key)
+		}
+	}
+}
+
+func TestGetAllByPrefixStripped(t *testing.T) {
+	var config Configuration = map[string]string{"p1.a": "1", "p1.b": "2", "p2.c": "3", "d": "4"}
+	allP1 := config.GetAllByPrefixStripped("p1")
+	expectedEntries := 2
+	if len(allP1) != expectedEntries {
+		t.Fatalf("Configuration did not extract expected [%d] but [%d] entries instead with prefix p1", expectedEntries, len(allP1))
+	}
+	var keys = []string{"a", "b"}
+	for _, key := range keys {
+		if _, ok := allP1[key]; !ok {
+			t.Fatalf("Configuration did not contain expected key %s", key)
+		}
+	}
+	for key := range config {
+		if _, ok := allP1[key]; ok {
+			t.Fatalf("Configuration contained unexpected key %s", key)
+		}
+	}
+}

@@ -97,7 +97,7 @@ func TestParseIsoLocal(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error while parsing date %v", err)
 	}
-	expectedDate := time.Date(2023, 01, 01, 01, 30, 0, 0, time.Local).Local()
+	expectedDate := time.Date(2023, 01, 01, 00, 30, 0, 0, time.UTC).Local()
 	if parsedDate != expectedDate {
 		t.Errorf("Expected start date to be [%v], found instead [%v]", expectedDate, parsedDate)
 	}

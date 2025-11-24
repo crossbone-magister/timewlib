@@ -3,6 +3,7 @@ package timewlib
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 var testCases = map[string]bool{
@@ -54,22 +55,24 @@ func TestRequireConfirmation(t *testing.T) {
 func TestGetReportStartDate(t *testing.T) {
 	var config Configuration = map[string]string{"temp.report.start": "20240308T230000Z"}
 	start, err := config.GetReportStartDate()
+	var expected = time.Date(2024, 3, 8, 23, 0, 0, 0, time.UTC).Local()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if start.Day() != 9 || start.Month() != 3 || start.Year() != 2024 || start.Hour() != 0 || start.Minute() != 0 {
-		t.Fatalf("Parsed date is not 20240308T230000Z but %s", start)
+	if expected != start {
+		t.Fatalf("Parsed date is not %s but %s", expected, start)
 	}
 }
 
 func TestGetReportEndDate(t *testing.T) {
 	var config Configuration = map[string]string{"temp.report.end": "20240309T230000Z"}
-	start, err := config.GetReportEndDate()
+	end, err := config.GetReportEndDate()
+	var expected = time.Date(2024, 3, 9, 23, 0, 0, 0, time.UTC).Local()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if start.Day() != 10 || start.Month() != 3 || start.Year() != 2024 || start.Hour() != 0 || start.Minute() != 0 {
-		t.Fatalf("Parsed date is not 20240309T230000Z but %s", start)
+	if expected != end {
+		t.Fatalf("Parsed date is not %s but %s", expected, end)
 	}
 }
 

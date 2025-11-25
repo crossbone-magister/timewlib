@@ -31,7 +31,7 @@ func TestNewInterval(t *testing.T) {
 		t.Errorf("interval.IsSameHour() is not correct :%t", interval.IsSameHour())
 	}
 	today := time.Now().Format("2006-01-02")
-	timezone := time.Now().Format("Z0700 MST")
+	timezone := time.Now().Local().Format("-0700 MST")
 	expectedStringValue := fmt.Sprintf("[%s 10:00:00 %s-%s 10:30:00 %s]", today, timezone, today, timezone)
 	if interval.String() != expectedStringValue {
 		t.Errorf("interval.String() is not correct :%s != %s", expectedStringValue, interval.String())

@@ -95,9 +95,9 @@ func TestProcessEndDateError(t *testing.T) {
 func TestParseIsoLocal(t *testing.T) {
 	parsedDate, err := parseIsoLocal("20230101T003000Z")
 	if err != nil {
-		t.Errorf("Error while parsing date")
+		t.Errorf("Error while parsing date %v", err)
 	}
-	expectedDate := time.Date(2023, 01, 01, 01, 30, 0, 0, time.Local)
+	expectedDate := time.Date(2023, 01, 01, 00, 30, 0, 0, time.UTC).Local()
 	if parsedDate != expectedDate {
 		t.Errorf("Expected start date to be [%v], found instead [%v]", expectedDate, parsedDate)
 	}

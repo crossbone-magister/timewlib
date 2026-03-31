@@ -6,9 +6,10 @@ import (
 )
 
 type Interval struct {
-	start time.Time
-	end   time.Time
-	Tags  []string
+	start      time.Time
+	end        time.Time
+	Tags       []string
+	Annotation string
 }
 
 func NewInterval(startHour int, startMinute int, endHour int, endMinute int) *Interval {

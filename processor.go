@@ -31,9 +31,10 @@ func Process(rawIntervals []TimewarriorInterval) ([]Interval, error) {
 			}
 		}
 		processedIntervals = append(processedIntervals, Interval{
-			start: start,
-			end:   end,
-			Tags:  rawInterval.Tags,
+			start:      start,
+			end:        end,
+			Tags:       rawInterval.Tags,
+			Annotation: rawInterval.Annotation,
 		})
 	}
 	return processedIntervals, nil

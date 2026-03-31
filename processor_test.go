@@ -8,9 +8,10 @@ import (
 func TestProcess(t *testing.T) {
 	testCase := []TimewarriorInterval{
 		{
-			Start: "20230101T000000Z",
-			End:   "20230101T003000Z",
-			Tags:  []string{"tag1", "tag2"},
+			Start:      "20230101T000000Z",
+			End:        "20230101T003000Z",
+			Tags:       []string{"tag1", "tag2"},
+			Annotation: "This is an annotation",
 		},
 	}
 	processed, err := Process(testCase)
@@ -39,6 +40,9 @@ func TestProcess(t *testing.T) {
 	endTime = endTime.Local()
 	if interval.end != endTime {
 		t.Errorf("Expected start date to be [%v], found instead [%v]", endTime, interval.end)
+	}
+	if interval.Annotation != "This is an annotation" {
+		t.Errorf("Expected annotation to be [This is an annotation], found instead [%v]", interval.Annotation)
 	}
 }
 

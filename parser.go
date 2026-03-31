@@ -8,10 +8,11 @@ import (
 )
 
 type TimewarriorInterval struct {
-	Id    uint64   `json:"id"`
-	Start string   `json:"start"`
-	End   string   `json:"end"`
-	Tags  []string `json:"tags"`
+	Id         uint64   `json:"id"`
+	Start      string   `json:"start"`
+	End        string   `json:"end"`
+	Tags       []string `json:"tags"`
+	Annotation string   `json:"annotation"`
 }
 
 type TimeWarriorInput struct {

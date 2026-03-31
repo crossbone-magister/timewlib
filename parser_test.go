@@ -138,6 +138,40 @@ func TestParseFromConfigurationWithIntervals(t *testing.T) {
 	}
 }
 
+func TestParseFromConfigurationWithAnnotation(t *testing.T) {
+	var testCase = `
+
+[
+	{"id":1,"start":"20230101T000000Z","end":"20230101T003000Z","tags":["tag1","tag2","tag3"],"annotation":"This is an annotation"}
+]`
+	reader := strings.NewReader(testCase)
+	parsed, err := Parse(reader)
+	if err != nil {
+		t.Errorf("Parser failed parsing test case %v", err)
+	}
+	if len(parsed.Intervals) != 1 {
+		t.Errorf("Parser did not load all intervals")
+	}
+	first := parsed.Intervals[0]
+	if first.Start != "20230101T000000Z" {
+		t.Errorf("Expected start to be [20230101T000000Z] found %s instead", first.Start)
+	}
+	if first.End != "20230101T003000Z" {
+		t.Errorf("Expected start to be [20230101T003000Z] found %s instead", first.End)
+	}
+	if len(first.Tags) != 3 {
+		t.Errorf("Parser did not load all tags for interval")
+	}
+	if first.Annotation != "This is an annotation" {
+		t.Errorf("Parser did not load annotation for interval")
+	}
+	for i := 0; i < 3; i++ {
+		if first.Tags[i] != fmt.Sprintf("tag%d", i+1) {
+			t.Errorf("Parser did not properly load tag number %d, actual value is %s", i, first.Tags[i])
+		}
+	}
+}
+
 func TestParseFromWithError(t *testing.T) {
 	var testCases = []string{"", `
 
